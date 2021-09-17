@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Process;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\PhpController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,13 @@ use App\Http\Controllers\HostController;
 |
 */
 
-Route::resource('/hosts', HostController::class)->except(['show']);
-Route::resource('/apps', AppController::class)->only(['create', 'store']);
-Route::resource('/php', PhpController::class)->only(['index', 'edit', 'update']);
+Route::resource('hosts', HostController::class)->except(['show']);
+Route::resource('apps', AppController::class)->only(['create', 'store']);
+Route::resource('php', PhpController::class)->only(['index', 'edit', 'update']);
 
-Route::post('/update/hosts', [HostController::class, 'updateHostFile'])->name('update.hosts');
-Route::post('/update/vhosts', [HostController::class, 'updateVHostConf'])->name('update.vhosts');
+Route::post('update/hosts', [HostController::class, 'updateHostFile'])->name('update.hosts');
+Route::post('update/vhosts', [HostController::class, 'updateVHostConf'])->name('update.vhosts');
+
+Route::get('', function () {
+    return redirect()->route('hosts.index');
+});

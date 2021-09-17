@@ -22,7 +22,7 @@ class ComposerCreateProject implements ShouldQueue
     protected string $package;
     protected bool $createDB;
     protected ?string $database;
-    protected string $composer;
+    protected string $composerCmd;
     protected Process $process;
 
     /**
@@ -39,7 +39,7 @@ class ComposerCreateProject implements ShouldQueue
         $this->package = $package;
         $this->createDB = $createDB;
         $this->database = $database;
-        $this->composer = config('tool.installers.composer-command');
+        $this->composerCmd = $host->cmd_composer;
         $this->process = new Process;
     }
 
@@ -54,12 +54,12 @@ class ComposerCreateProject implements ShouldQueue
             mkdir($this->host->path, 0777, true);
         }
 
-        $command = 'cd '.dirname($this->host->path, 1).' && '.$this->composer.' create-project '.$this->package.' '.basename($this->host->path).' --prefer-dist';
+        $command = 'cd '.dirname($this->host->path, 1).' && '.$this->composerCmd.' create-project '.$this->package.' '.basename($this->host->path).' --prefer-dist';
         if (!$this->process->runCommand($command)) {
             return;
         }
 
-        $command = 'cd '.$this->host->path.' && '.$this->composer.' install';
+        $command = 'cd '.$this->host->path.' && '.$this->composerCmd.' install';
         if (!$this->process->runCommand($command)) {
             return;
         }
