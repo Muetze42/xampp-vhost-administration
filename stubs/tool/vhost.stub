@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+	ServerName {{ host }}
+	ServerAlias *.{{ host }}
+	DocumentRoot "{{ path }}"
+	ErrorLog "logs/{{ host }}.log"
+	CustomLog "logs/{{ host }}.log" common
+	<Directory "{{ path }}">
+		Options Indexes FollowSymLinks
+		AllowOverride All
+		Require all granted
+	</Directory>
+</VirtualHost>
+<VirtualHost *:443>
+    ServerName {{ host }}
+    ServerAlias *.{{ host }}
+	DocumentRoot "{{ path }}"
+	SSLEngine On
+	SSLCertificateFile "{{ xampp-path }}\apache\conf\ssl.crt\server.crt"
+	SSLCertificateKeyFile "{{ xampp-path }}\apache\conf\ssl.key\server.key"
+    <Directory "{{ path }}">
+        Options Indexes FollowSymLinks
+		AllowOverride All
+		Require all granted
+    </Directory>
+</VirtualHost>

@@ -1,0 +1,11 @@
+ScriptAlias /php74 "{{ php-path }}"
+Action application/x-httpd-{{ php-slug }}-cgi /php74/php-cgi.exe
+<Directory "{{ php-path }}">
+    AllowOverride None
+    Options None
+    Require all denied
+    <Files "php-cgi.exe">
+        Require all granted
+    </Files>
+    SetEnv PHPRC "{{ php-path }}"
+</Directory>
