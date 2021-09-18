@@ -23,3 +23,7 @@ Route::resource('php', PhpController::class)->only(['index', 'edit', 'update']);
 
 Route::post('update/hosts', [HostController::class, 'updateHostFile'])->name('update.hosts');
 Route::post('update/vhosts', [HostController::class, 'updateVHostConf'])->name('update.vhosts');
+
+Route::get('', function () {
+    return redirect()->route('hosts.index');
+});
