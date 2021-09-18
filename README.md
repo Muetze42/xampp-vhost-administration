@@ -6,6 +6,13 @@
 * Run `composer install`
 * Run `php artisan install`
 
+## Config
+* Copy `.env.example` to `.env` and set up `APP_URL` the files under `# XAMPP Settings`, `# Tool Settings` and `# Installer Settings`
+* Run `php artisan vendor:publish --tag=tool-installers-config` to set up `config/installers.php` for the App Installers
+* Run `php artisan vendor:publish --tag=tool-config` to set up the tool
+
+---
+
 ### Optional (Examples with PHP 7.4 as second PHP version and installation path C:/xampp)
 * Install other PHP versions in the Xampp folder (`C:/xampp/php/php74`, `C:/xampp/php/php73` etc, folder names with `.` are excluded)
 * **Copy** `C:/xampp/php/php74/php.exe` to `C:/xampp/php/php74/php74.exe`

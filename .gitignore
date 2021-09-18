@@ -15,3 +15,5 @@ yarn-error.log
 /.vscode
 /composer.lock
 /package-lock.json
+/config/installers.php
+/config/tool.php

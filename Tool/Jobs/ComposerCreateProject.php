@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\AppInstaller;
+namespace NormanHuth\VHostTool\Jobs;
 
 use App\Models\Host;
 use Illuminate\Bus\Queueable;
@@ -39,7 +39,7 @@ class ComposerCreateProject implements ShouldQueue
         $this->package = $package;
         $this->createDB = $createDB;
         $this->database = $database;
-        $this->composerCmd = $host->cmd_composer;
+        $this->composerCmd = $host->php->cmd_composer;
         $this->process = new Process;
     }
 

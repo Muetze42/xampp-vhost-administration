@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \NormanHuth\VHostTool\ToolServiceProvider::class,
 
         /*
          * Application Service Providers...

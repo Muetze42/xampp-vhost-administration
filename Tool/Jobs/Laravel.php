@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\AppInstaller;
+namespace NormanHuth\VHostTool\Jobs;
 
 
 use Illuminate\Bus\Queueable;
