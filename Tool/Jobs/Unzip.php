@@ -9,39 +9,35 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Exception;
-use App\Helpers\Process;
 use NormanHuth\VHostTool\Traits\CreateDatabase;
+use ZipArchive;
 
-class ComposerCreateProject implements ShouldQueue
+class Unzip implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, CreateDatabase;
 
     protected Host $host;
-    protected string $package;
+    protected string $file;
     protected bool $createDB;
     protected ?string $database;
-    protected string $composerCmd;
-    protected Process $process;
+    protected ZipArchive $zip;
 
     /**
      * Create a new job instance.
      *
      * @param Host $host
-     * @param string $package
+     * @param string $file
      * @param bool $createDB
      * @param string|null $database
      */
-    public function __construct(Host $host, string $package, bool $createDB = false, ?string $database = null)
+    public function __construct(Host $host, string $file, bool $createDB = false, ?string $database = null)
     {
         $this->host = $host;
-        $this->package = $package;
+        $this->file = $file;
         $this->createDB = $createDB;
         $this->database = $database;
-        $this->composerCmd = $host->php->cmd_composer;
-        $this->process = new Process;
+        $this->zip = new ZipArchive;
     }
 
     /**
@@ -51,21 +47,14 @@ class ComposerCreateProject implements ShouldQueue
      */
     public function handle()
     {
-        if (!is_dir($this->host->path)) {
-            mkdir($this->host->path, 0777, true);
-        }
-
-        $command = 'cd '.dirname($this->host->path, 1).' && '.$this->composerCmd.' create-project '.$this->package.' '.basename($this->host->path).' --prefer-dist';
-        if (!$this->process->runCommand($command)) {
-            return;
-        }
-
-        $command = 'cd '.$this->host->path.' && '.$this->composerCmd.' install';
-        if (!$this->process->runCommand($command)) {
-            return;
-        }
-
         $this->createDatabase();
+        $res = $this->zip->open($this->file);
+        if ($res === true) {
+            $this->zip->extractTo($this->host->path);
+            $this->zip->close();
+        } else {
+            Log::error('Unzip Error. File: '.$this->file."\nError Code:");
+        }
 
         $this->processAfterInstall();
     }

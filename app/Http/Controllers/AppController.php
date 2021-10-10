@@ -40,7 +40,8 @@ class AppController extends HostController
 
         $app = config('installers.'.$request->input('installer'));
 
-        $app['installer']::dispatch($host, $app['parameter'], $createDb, $request->input('db-name'));
+        $parameter = !empty($app['file']) ? $app['file'] : $app['parameter'];
+        $app['installer']::dispatch($host, $parameter, $createDb, $request->input('db-name'));
 
         return redirect()->route('hosts.index')->with('success', __('Host and App created'));
     }

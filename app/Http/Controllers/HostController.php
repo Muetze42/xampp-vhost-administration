@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Host;
 use App\Models\Php;
+use App\Rules\FileExist;
 use App\Rules\LocalDomain;
 use App\Rules\PathExist;
 use App\Traits\quickXampp;
@@ -67,8 +68,9 @@ class HostController extends Controller
         }
 
         $request->validate([
-            'domain' => ['string', 'required', new LocalDomain],
-            'path'   => ['string', 'required', new PathExist],
+            'domain'    => ['string', 'required', new LocalDomain],
+            'path'      => ['string', 'required', new PathExist],
+            'installer' => [new FileExist($request)],
         ]);
 
         $host = $php->hosts()->updateOrCreate(
