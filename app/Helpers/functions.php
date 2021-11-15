@@ -214,10 +214,12 @@ if (!function_exists('replaceInFile')) {
      */
     function replaceInFile(string $search, string $replace, string $file)
     {
-        file_put_contents(
-            $file,
-            str_replace($search, $replace, file_get_contents($file))
-        );
+        if (file_exists($file)) {
+            file_put_contents(
+                $file,
+                str_replace($search, $replace, file_get_contents($file))
+            );
+        }
     }
 }
 

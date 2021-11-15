@@ -56,14 +56,16 @@ class ComposerCreateProject implements ShouldQueue
         }
 
         $command = 'cd '.dirname($this->host->path, 1).' && '.$this->composerCmd.' create-project '.$this->package.' '.basename($this->host->path).' --prefer-dist';
-        if (!$this->process->runCommand($command)) {
-            return;
-        }
+//        if (!$this->process->runCommand($command)) {
+//            return;
+//        }
+        $this->process->runCommand($command);
 
         $command = 'cd '.$this->host->path.' && '.$this->composerCmd.' install';
-        if (!$this->process->runCommand($command)) {
-            return;
-        }
+//        if (!$this->process->runCommand($command)) {
+//            return;
+//        }
+        $this->process->runCommand($command);
 
         $this->createDatabase();
 
