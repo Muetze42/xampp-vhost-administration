@@ -7,4 +7,12 @@
             @endforeach
         </select>
     </li>
+    <li class="list-group-item">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" name="create-database" id="create-database">
+            <label class="form-check-label" for="create-database">
+                {{ __('Create Database') }}
+            </label>
+        </div>
+    </li>
 @endsection
