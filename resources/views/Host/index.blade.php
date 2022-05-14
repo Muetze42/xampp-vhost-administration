@@ -30,7 +30,7 @@
                             {{ $host->name }}
                         </a>
                         <sup class="badge {{ $host->php->default ? 'bg-php border shadow-sm' : 'bg-php2 shadow-sm' }}">
-                            PHP {{ explode('.', $host->php->version)[0] }}
+                            PHP {{ explode('.', $host->php->version)[0] }}.{{ explode('.', $host->php->version)[1] }}
                             @if(config('tool.options.show-php-folder'))
                                 [{{ basename($host->php->path) }}]
                             @endif
