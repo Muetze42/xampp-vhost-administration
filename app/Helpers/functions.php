@@ -229,3 +229,12 @@ if (!function_exists('dbName')) {
         return Str::slug(str_replace(['.', '-'], '-', $string), '_');
     }
 }
+
+if (!function_exists('formatPHPVersion')) {
+    function formatPHPVersion(string $version): string
+    {
+        $parts = explode('.', $version);
+
+        return $parts[0].'.'.$parts[1];
+    }
+}
