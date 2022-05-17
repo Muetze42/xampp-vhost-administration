@@ -47,14 +47,16 @@ class Xampp
         foreach ($versions as $version) {
             $alias = file_get_contents(base_path('stubs/tool/httpd-xampp.alias.stub'));
             $replace = [
-                '{{ php-path }}'   => unixSep($version->path),
-                '{{php-path}}'     => unixSep($version->path),
-                '{{ php-slug }}'   => phpSlug($version->path),
-                '{{php-slug}}'     => phpSlug($version->path),
-                '{{ xampp-path }}' => unixSep($this->xamppPath),
-                '{{xampp-path}}'   => unixSep($this->xamppPath),
+                '{{ php-path }}'          => unixSep($version->path),
+                '{{php-path}}'            => unixSep($version->path),
+                '{{ php-path-basename }}' => basename(unixSep($version->path)),
+                '{{php-path-basename}}'   => basename(unixSep($version->path)),
+                '{{ php-slug }}'          => phpSlug($version->path),
+                '{{php-slug}}'            => phpSlug($version->path),
+                '{{ xampp-path }}'        => unixSep($this->xamppPath),
+                '{{xampp-path}}'          => unixSep($this->xamppPath),
             ];
-            $data.= str_replace(array_keys($replace), array_values($replace), $alias);
+            $data .= str_replace(array_keys($replace), array_values($replace), $alias);
 
             file_put_contents($this->httpdXamppConfFile, $data);
         }

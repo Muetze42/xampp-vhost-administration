@@ -1,5 +1,5 @@
 ScriptAlias /{{ php-slug }} "{{ php-path }}"
-Action application/x-httpd-{{ php-slug }}-cgi /php74/php-cgi.exe
+Action application/x-httpd-{{ php-slug }}-cgi /{{ php-path-basename }}/php-cgi.exe
 <Directory "{{ php-path }}">
     AllowOverride None
     Options None
