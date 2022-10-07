@@ -1,6 +1,6 @@
 <VirtualHost *:80>
 	ServerName {{ host }}
-	ServerAlias *.{{ host }}
+	#ServerAlias *.{{ host }}
 	DocumentRoot "{{ path }}"
 	ErrorLog "logs/{{ host }}.log"
 	CustomLog "logs/{{ host }}.log" common
@@ -15,7 +15,7 @@
 </VirtualHost>
 <VirtualHost *:443>
     ServerName {{ host }}
-    ServerAlias *.{{ host }}
+    #ServerAlias *.{{ host }}
 	DocumentRoot "{{ path }}"
 	SSLEngine On
 	SSLCertificateFile "{{ xampp-path }}\apache\conf\ssl.crt\server.crt"
